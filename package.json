@@ -1,0 +1,41 @@
+{
+  "name": "reddit-API-clone",
+  "version": "1.0.0",
+  "description": "My own interpretation of Reddit using Node, Express, MongoDB on the backend and React, Redux on the frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./spec",
+    "start": "nodemon server.js",
+    "lint": "eslint ./",
+    "posttest": "npm run lint",
+    "precommit": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanionita/reddit-API-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alanionita/reddit-API-clone/issues"
+  },
+  "homepage": "https://github.com/alanionita/reddit-API-clone#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-loader": "^1.8.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.1.0",
+    "husky": "^0.14.3",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0",
+    "prettier-eslint": "^7.1.0",
+    "supertest": "^3.0.0"
+  }
+}
