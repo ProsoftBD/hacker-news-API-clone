@@ -1,8 +1,8 @@
-const path = require('path');
+/* eslint-disable */
 
 module.exports = {
-  Users: path.resolve(__dirname, 'Users'),
-  Articles: path.resolve(__dirname, 'Articles'),
-  Comments: path.resolve(__dirname, 'Comments'),
-  Topics: path.resolve(__dirname, 'Topics'),
+  Users: require('./users'),
+  Articles: require('./articles'),
+  Comments: require('./comments'),
+  Topics: require('./topics'),
 };
