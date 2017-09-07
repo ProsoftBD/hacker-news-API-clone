@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-console */
 
 process.env.NODE_ENV = 'test';
 const { expect } = require('chai');
@@ -211,6 +212,24 @@ describe('API', () => {
               expect(res.body.message).to.equal(output);
               done();
             }
+          });
+      });
+    });
+  });
+
+  describe('POST /api/articles/:article_id/comments', () => {
+    it('responds with status code 200 & returns new comment', (done) => {
+      Articles.findOne({}, (err, article) => {
+        if (err) done(err);
+        request(server)
+          .post(`/api/articles/${article._id}/comments`)
+          .send({ body: 'this is a test comment' })
+          .end((error, res) => {
+            if (error) done(error);
+            expect(res.status).to.equal(200);
+            expect(res.body.newComment).to.be.an('object');
+            expect(res.body.newComment.body).to.equal('this is a test comment');
+            done();
           });
       });
     });

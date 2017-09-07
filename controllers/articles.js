@@ -43,3 +43,18 @@ exports.putAlterVotes = (req, res) => {
       res.status(500).json({ err });
     });
 };
+
+exports.postNewComment = (req, res) => {
+  const newComment = new Comments({
+    belongs_to: req.params.article_id,
+    body: req.body.body || 'empty',
+  });
+  newComment
+    .save((err, comment) => {
+      if (err) res.json(err);
+      res.json({ newComment: comment });
+    })
+    .catch((err) => {
+      res.json({ message: 'could not create', err });
+    });
+};
