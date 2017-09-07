@@ -8,8 +8,8 @@ exports.getTopics = (req, res) => {
       }
       res.json({ topics });
     })
-    .catch((rej) => {
-      rej.status(500);
+    .catch((err) => {
+      err.status(500).json({ err });
     });
 };
 
@@ -23,6 +23,6 @@ exports.getArticlesByTopic = (req, res) => {
       });
     })
     .catch((err) => {
-      err.status(500);
+      err.status(500).json({ err });
     });
 };
