@@ -181,5 +181,20 @@ describe('API', () => {
           });
       });
     });
+    it('responds with status code 200 & decreases comment votes', (done) => {
+      Comments.findOne({}, (err, comment) => {
+        if (err) done(err);
+        request(server)
+          .put(`/api/comments/${comment._id}?vote=down`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(200);
+              expect(res.body.votes).to.equal(-1);
+              done();
+            }
+          });
+      });
+    });
   });
 });
