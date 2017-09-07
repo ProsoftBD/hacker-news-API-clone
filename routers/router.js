@@ -9,5 +9,6 @@ routes.get('/', Base);
 routes.get('/topics', Topics.getTopics);
 routes.get('/topics/:topic_id/articles', Topics.getArticlesByTopic);
 routes.get('/articles', Articles.getArticles);
+routes.get('/articles/:article_id/comments', Articles.getArticleComments);
 
 module.exports = routes;

@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
 
 process.env.NODE_ENV = 'test';
 const { expect } = require('chai');
@@ -8,6 +8,7 @@ const request = require('supertest');
 
 const server = require('../server');
 const saveTestData = require('../seed/test.seed');
+const { Articles } = require('../models/models');
 
 describe('API', () => {
   let usefulData;
@@ -94,6 +95,23 @@ describe('API', () => {
             done();
           }
         });
+    });
+  });
+  describe('GET /api/articles/:article_id/comments', () => {
+    it('responds with status code 200 & returns article comments', (done) => {
+      Articles.findOne({}, (err, article) => {
+        request(server)
+          .get(`/api/articles/${article._id}/comments`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(200);
+              expect(res.body.comments).to.be.an('array');
+              expect(res.body.comments.length).to.equal(2);
+              done();
+            }
+          });
+      });
     });
   });
 });
