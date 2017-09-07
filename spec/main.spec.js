@@ -8,7 +8,7 @@ const request = require('supertest');
 
 const server = require('../server');
 const saveTestData = require('../seed/test.seed');
-const { Articles } = require('../models/models');
+const { Articles, Users } = require('../models/models');
 
 describe('API', () => {
   let usefulData;
@@ -108,6 +108,23 @@ describe('API', () => {
               expect(res.status).to.equal(200);
               expect(res.body.comments).to.be.an('array');
               expect(res.body.comments.length).to.equal(2);
+              done();
+            }
+          });
+      });
+    });
+  });
+  describe('GET /api/users/:username', () => {
+    it('responds with status code 200 & returns user by username', (done) => {
+      Users.findOne({}, (err, user) => {
+        request(server)
+          .get(`/api/users/${user.username}`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(200);
+              expect(res.body.user).to.be.an('object');
+              expect(res.body.user.name).to.eql(user.name);
               done();
             }
           });
