@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const { Articles, Comments } = require('../models/models');
 
 exports.getArticles = (req, res) => {
@@ -23,5 +24,22 @@ exports.getArticleComments = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ err });
+    });
+};
+
+exports.putAlterVotes = (req, res) => {
+  let voteValue = -1;
+  if (req.query.vote === 'up') voteValue = 1;
+
+  Articles.findOneAndUpdate(
+    { _id: req.params.article_id },
+    { $inc: { votes: `${voteValue}` } },
+    { new: true }
+  )
+    .then((article) => {
+      res.status(200).json(article);
+    })
+    .catch(() => {
+      res.status(500).json({ message: 'nope' });
     });
 };

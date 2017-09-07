@@ -11,5 +11,6 @@ routes.get('/topics/:topic_id/articles', Topics.getArticlesByTopic);
 routes.get('/articles', Articles.getArticles);
 routes.get('/articles/:article_id/comments', Articles.getArticleComments);
 routes.get('/users/:username', Users.getUserByUsername);
+routes.put('/articles/:article_id', Articles.putAlterVotes);
 
 module.exports = routes;

@@ -100,6 +100,7 @@ describe('API', () => {
   describe('GET /api/articles/:article_id/comments', () => {
     it('responds with status code 200 & returns article comments', (done) => {
       Articles.findOne({}, (err, article) => {
+        if (err) done(err);
         request(server)
           .get(`/api/articles/${article._id}/comments`)
           .end((error, res) => {
@@ -117,6 +118,7 @@ describe('API', () => {
   describe('GET /api/users/:username', () => {
     it('responds with status code 200 & returns user by username', (done) => {
       Users.findOne({}, (err, user) => {
+        if (err) done(err);
         request(server)
           .get(`/api/users/${user.username}`)
           .end((error, res) => {
@@ -125,6 +127,23 @@ describe('API', () => {
               expect(res.status).to.equal(200);
               expect(res.body.user).to.be.an('object');
               expect(res.body.user.name).to.eql(user.name);
+              done();
+            }
+          });
+      });
+    });
+  });
+  describe('PUT /api/articles/:article_id', () => {
+    it('responds with status code 200 & increases votes', (done) => {
+      Articles.findOne({}, (err, article) => {
+        if (err) done(err);
+        request(server)
+          .put(`/api/articles/${article._id}?vote=up`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(200);
+              expect(res.body.votes).to.equal(1);
               done();
             }
           });
