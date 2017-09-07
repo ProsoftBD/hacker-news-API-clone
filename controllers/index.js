@@ -1,9 +1,11 @@
-const topics = require('./topics');
 const articles = require('./articles');
+const comments = require('./comments');
+const topics = require('./topics');
 const users = require('./users');
 
 module.exports = {
-  Topics: topics,
   Articles: articles,
+  Comments: comments,
+  Topics: topics,
   Users: users,
 };

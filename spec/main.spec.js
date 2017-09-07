@@ -8,7 +8,7 @@ const request = require('supertest');
 
 const server = require('../server');
 const saveTestData = require('../seed/test.seed');
-const { Articles, Users } = require('../models/models');
+const { Articles, Users, Comments } = require('../models/models');
 
 describe('API', () => {
   let usefulData;
@@ -134,7 +134,7 @@ describe('API', () => {
     });
   });
   describe('PUT /api/articles/:article_id', () => {
-    it('responds with status code 200 & increases votes', (done) => {
+    it('responds with status code 200 & increases article votes', (done) => {
       Articles.findOne({}, (err, article) => {
         if (err) done(err);
         request(server)
@@ -149,7 +149,7 @@ describe('API', () => {
           });
       });
     });
-    it('responds with status code 200 & decreases votes', (done) => {
+    it('responds with status code 200 & decreases article votes', (done) => {
       Articles.findOne({}, (err, article) => {
         if (err) done(err);
         request(server)
@@ -159,6 +159,23 @@ describe('API', () => {
             else {
               expect(res.status).to.equal(200);
               expect(res.body.votes).to.equal(-1);
+              done();
+            }
+          });
+      });
+    });
+  });
+  describe('PUT /api/comments/:comment_id', () => {
+    it('responds with status code 200 & increases comment votes', (done) => {
+      Comments.findOne({}, (err, comment) => {
+        if (err) done(err);
+        request(server)
+          .put(`/api/comments/${comment._id}?vote=up`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(200);
+              expect(res.body.votes).to.equal(1);
               done();
             }
           });
