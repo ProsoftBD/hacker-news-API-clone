@@ -197,4 +197,23 @@ describe('API', () => {
       });
     });
   });
+  describe('DELETE /api/comments/:comment_id', () => {
+    it('responds with status code 200 & deletes comment', (done) => {
+      // Comments.findById('594eddb5922b340347b270e0' ,(err, comment) => {
+      Comments.findOne({}, (err, comment) => {
+        if (err) done(err);
+        request(server)
+          .delete(`/api/comments/${comment._id}`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              const output = `The comment with id: ${comment._id} has been removed`;
+              expect(res.status).to.equal(200);
+              expect(res.body.message).to.equal(output);
+              done();
+            }
+          });
+      });
+    });
+  });
 });

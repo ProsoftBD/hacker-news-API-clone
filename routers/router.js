@@ -13,5 +13,6 @@ routes.get('/articles/:article_id/comments', Articles.getArticleComments);
 routes.get('/users/:username', Users.getUserByUsername);
 routes.put('/articles/:article_id', Articles.putAlterVotes);
 routes.put('/comments/:comment_id', Comments.putAlterVotes);
+routes.delete('/comments/:comment_id', Comments.deleteComment);
 
 module.exports = routes;
