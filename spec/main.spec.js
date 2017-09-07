@@ -66,4 +66,19 @@ describe('API', () => {
         });
     });
   });
+  describe('GET /api/topics/:topic_id/articles', () => {
+    it('responds with status code 200 & returns articles for a particular topic', (done) => {
+      request(server)
+        .get('/api/topics/cats/articles')
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            expect(res.body.articles).to.be.an('array');
+            expect(res.body.articles.length).to.equal(1);
+            done();
+          }
+        });
+    });
+  });
 });

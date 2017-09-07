@@ -7,5 +7,6 @@ const Base = (req, res) => {
 
 routes.get('/', Base);
 routes.get('/topics', Topics.getTopics);
+routes.get('/topics/:topic_id/articles', Topics.getArticlesByTopic);
 
 module.exports = routes;
