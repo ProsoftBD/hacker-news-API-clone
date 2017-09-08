@@ -2,7 +2,7 @@ const routes = require('express').Router();
 const { Topics, Articles, Users, Comments } = require('../controllers/');
 
 const Base = (req, res) => {
-  res.send('<h1>Routes available:</h1>');
+  res.send('<h1>Routes available:</h1><h3>GET /topics</h3><h3>GET /topics/:topic_id/articles</h3><h3>GET /articles</h3><h3>GET /articles/:article_id/comments</h3><h3>GET /users/:username</h3><h3>PUT /articles/:article_id</h3><h3>PUT /comments/:comment_id</h3><h3>DELETE /comments/:comment_id</h3><h3>POST /articles/:article_id/comments</h3>');
 };
 
 routes.get('/', Base);
