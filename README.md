@@ -1,6 +1,6 @@
 # Hacker News API clone
 
-My own interpretation of the Hacker News API using Node, Express, MongoDB on the backend
+My own interpretation of the Hacker News API using Node, Express, and MongoDB.
 
 ## Getting Started
 
