@@ -1,4 +1,5 @@
-const routes = require('express').Router();
+const cors = require('cors');
+const routes = require('express').Router().use(cors());
 const { Topics, Articles, Users, Comments } = require('../controllers/');
 
 const Base = (req, res) => {
