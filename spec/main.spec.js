@@ -234,4 +234,23 @@ describe('API', () => {
       });
     });
   });
+  describe('GET /api/articles/:article_id', () => {
+    it('responds with status code 200 & returns article', (done) => {
+      Articles.findOne({}, (err, article) => {
+        if (err) done(err);
+        request(server)
+          .get(`/api/articles/${article._id}`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(200);
+              expect(res.body.article).to.be.an('object');
+              expect(res.body.article._id).to.equal(`${article._id}`);
+              expect(res.body.article.title).to.equal(`${article.title}`);
+              done();
+            }
+          });
+      });
+    });
+  });
 });

@@ -58,3 +58,16 @@ exports.postNewComment = (req, res) => {
       res.json({ message: 'could not create', err });
     });
 };
+
+exports.getArticleById = (req, res) => {
+  Articles.findById(req.params.article_id)
+    .then((article) => {
+      if (!article) res.status(404).json({ message: 'no article found!' });
+      res.status(200).json({
+        article,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({ err });
+    });
+};
