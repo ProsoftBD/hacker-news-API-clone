@@ -202,6 +202,7 @@ describe('API', () => {
     it('responds with status code 200 & deletes comment', (done) => {
       Comments.findOne({}, (err, comment) => {
         if (err) done(err);
+        const foundComment = JSON.parse(JSON.stringify(comment));
         request(server)
           .delete(`/api/comments/${comment._id}`)
           .end((error, res) => {
@@ -209,6 +210,8 @@ describe('API', () => {
             else {
               const output = `The comment with id: ${comment._id} has been removed`;
               expect(res.status).to.equal(200);
+              expect(res.body.deletedComment).to.be.an('object');
+              expect(res.body.deletedComment).to.eql(foundComment);
               expect(res.body.message).to.equal(output);
               done();
             }

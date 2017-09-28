@@ -25,6 +25,7 @@ exports.deleteComment = (req, res) => {
     .then((comment) => {
       res.status(200).json({
         message: `The comment with id: ${comment._id} has been removed`,
+        deletedComment: comment
       });
     })
     .catch((err) => {
