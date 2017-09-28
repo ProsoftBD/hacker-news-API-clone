@@ -21,14 +21,18 @@ exports.putAlterVotes = (req, res) => {
 };
 
 exports.deleteComment = (req, res) => {
-  Comments.findByIdAndRemove({ _id: req.params.comment_id })
-    .then((comment) => {
-      res.status(200).json({
-        message: `The comment with id: ${comment._id} has been removed`,
-        deletedComment: comment
+  if (req.query.user === 'northcoder') {
+    Comments.findByIdAndRemove({ _id: req.params.comment_id })
+      .then((comment) => {
+        res.status(200).json({
+          message: `The comment with id: ${comment._id} has been removed`,
+          deletedComment: comment,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({ err });
       });
-    })
-    .catch((err) => {
-      res.status(500).json({ err });
-    });
+  } else {
+    res.status(403).json('Invalid username!');
+  }
 };

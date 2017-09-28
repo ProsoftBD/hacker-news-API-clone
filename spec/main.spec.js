@@ -199,12 +199,12 @@ describe('API', () => {
     });
   });
   describe('DELETE /api/comments/:comment_id', () => {
-    it('responds with status code 200 & deletes comment', (done) => {
+    it('responds with status code 200 & deletes comment if user is northcoder', (done) => {
       Comments.findOne({}, (err, comment) => {
         if (err) done(err);
         const foundComment = JSON.parse(JSON.stringify(comment));
         request(server)
-          .delete(`/api/comments/${comment._id}`)
+          .delete(`/api/comments/${comment._id}?user=northcoder`)
           .end((error, res) => {
             if (error) done(error);
             else {
@@ -213,6 +213,21 @@ describe('API', () => {
               expect(res.body.deletedComment).to.be.an('object');
               expect(res.body.deletedComment).to.eql(foundComment);
               expect(res.body.message).to.equal(output);
+              done();
+            }
+          });
+      });
+    });
+    it('responds with status code 403 & and err if the user is not northcoder', (done) => {
+      Comments.findOne({}, (err, comment) => {
+        if (err) done(err);
+        request(server)
+          .delete(`/api/comments/${comment._id}?user=abby`)
+          .end((error, res) => {
+            if (error) done(error);
+            else {
+              expect(res.status).to.equal(403);
+              expect(res.body).to.equal('Invalid username!');
               done();
             }
           });
