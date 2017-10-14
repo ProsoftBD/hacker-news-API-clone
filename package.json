@@ -1,11 +1,14 @@
 {
-  "name": "reddit-API-clone",
+  "name": "hacker-news-API-clone",
   "version": "1.0.0",
-  "description": "My own interpretation of Reddit using Node, Express, MongoDB on the backend and React, Redux on the frontend",
+  "description": "My own interpretation of Hacker News using Node, Express, MongoDB on the backend and React, Redux on the frontend",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./spec",
-    "start": "nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=dev nodemon server.js",
+    "seed:dev": "NODE_ENV=dev node seed/seed.js",
+    "seed:production": "NODE_ENV=production node seed/seed.js",
     "lint": "eslint ./",
     "posttest": "npm run lint",
     "precommit": "npm test"
@@ -26,6 +29,7 @@
     "body-parser": "^1.17.2",
     "chance": "^1.0.11",
     "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "log4js": "^2.3.3",
     "moment": "^2.18.1",

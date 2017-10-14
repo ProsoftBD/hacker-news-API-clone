@@ -1,5 +1,10 @@
 /* eslint-disable */
 
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+require('dotenv').config({
+  path: `./.${process.env.NODE_ENV}.env`
+})
+
 var models = require('../models/models');
 var userData = require('./data/user_data.js');
 var articleData = require('./data/articles');
@@ -11,11 +16,13 @@ var mongoose = require('mongoose');
 var log4js = require('log4js');
 var logger = log4js.getLogger();
 var moment = require('moment');
-var DBs = require('../config').DB;
+// var DBs = require('../config').DB;
 
-mongoose.connect(DBs.dev, function(err) {
+console.log(process.env);
+
+mongoose.connect(process.env.DB_URI, function(err) {
   if (!err) {
-    logger.info(`connected to database ${DBs.dev}`);
+    logger.info(`connected to database ${process.env.DB_URI}`);
     mongoose.connection.db.dropDatabase();
     async.waterfall([addUsers, addTopics, addArticles, addComments, addNorthcoderUser], err => {
       if (err) {
