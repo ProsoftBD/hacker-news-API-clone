@@ -24,8 +24,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res
     .status(200)
-    .send('<h1>Welcome to the Hacker News Clone API</h1> \n Go to /api for more...')
-    .send();
+    .send('<h1>Welcome to the Hacker News Clone API</h1> \n Go to /api for more...');
 });
 
 app.use('/api', routes);
