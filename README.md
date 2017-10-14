@@ -66,7 +66,7 @@ Navigate to the server folder and open the 'seed' folder.
 Run the following command.
 
 ```
-$ node seed.js
+$ npm run seed:dev
 ```
 
 This will populate the DEV database. It's only necessary for the DEV db because the TEST database is dropped and re-seeded before each block of tests.
